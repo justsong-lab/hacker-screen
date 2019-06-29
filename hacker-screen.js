@@ -43,11 +43,10 @@ function main() {
                 coordinate.x += canvas.width;
             }
             coordinate.y += gain;
-            return {
+            return { // Make the distribution of characters like a waterfall
                 x: coordinate.x,
                 y: coordinate.y > 500 + random * 10000 ? 0 : coordinate.y
             }
-                ; // Make the distribution of characters like a waterfall
         });
         requestAnimationFrame(tick); // Use function 'requestAnimationFrame' to improve performance
     }
