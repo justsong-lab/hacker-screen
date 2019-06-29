@@ -39,6 +39,9 @@ function main() {
             // Each time we just randomly select one from this range
             screen.fillText(String.fromCharCode(32 + Math.round((126 - 32) * random)), coordinate.x, coordinate.y);
             coordinate.x = (coordinate.x + offset) % canvas.width;
+            if (coordinate.x < 0) {
+                coordinate.x += canvas.width;
+            }
             coordinate.y += gain;
             return {
                 x: coordinate.x,
