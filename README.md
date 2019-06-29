@@ -1,7 +1,7 @@
 ## Introduction
 + Hacker screen simulator
 + **[Try it here](https://songwonderful.github.io/hacker-screen/)**
-+ [Document here](https://songwonderful.github.io/hacker-screen/docs/public/hacker-screen.html)
++ [Document here](https://songwonderful.github.io/hacker-screen/docs/hacker-screen.html)
 + Demo
 ![demo](https://user-images.githubusercontent.com/39998050/60383187-70d59080-9aa0-11e9-96e3-8a0538f8edb3.gif)
 
