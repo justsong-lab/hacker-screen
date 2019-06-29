@@ -1,4 +1,6 @@
 'use strict';
+let gain = 10; // All characters move down gain pixels each time
+let offset = 0; // All characters move right offset pixels each time
 main();
 
 function main() {
@@ -19,8 +21,8 @@ function main() {
             let random = Math.random();
             // According to the ASCII Table, the chars from 32 to 126 are printable
             // Each time we just randomly select one from this range
-            screen.fillText(String.fromCharCode(32 + Math.round((126 - 32) * random)), index * 10, value);
-            value += 10; // All characters move down 10 pixels each time
+            screen.fillText(String.fromCharCode(32 + Math.round((126 - 32) * random)), index * 10 + offset, value);
+            value += gain;
             return value > 500 + random * 10000 ? 0 : value; // Make the distribution of characters like a waterfall
         });
         requestAnimationFrame(tick); // Use function 'requestAnimationFrame' to improve performance
@@ -28,3 +30,28 @@ function main() {
 
     tick();
 }
+
+document.onkeydown = function (e) {
+    switch (e.code) {
+        case "ArrowUp":
+            gain += 2;
+            break;
+        case "ArrowDown":
+            gain -= 2;
+            break;
+        case "ArrowLeft":
+            offset -= 5;
+            break;
+        case "ArrowRight":
+            offset += 5;
+            break;
+        case "F11":
+            location.reload();
+            break;
+        case "r":
+            location.reload();
+            break;
+        default:
+            break;
+    }
+};
