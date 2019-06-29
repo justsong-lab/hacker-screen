@@ -9,21 +9,30 @@ function main() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const screen = canvas.getContext('2d'); // Get the canvas context
-    // Create an array with 256 elements with values of '0'
-    // Why we use "0" here? Because this is the initial y coordinate of the characters
-    let array = Array(256).join('0').split('');
+    let array = Array(256);
+    for (let i = 0; i < array.length; i++) {
+        array[i] = {
+            x: i * 10,
+            y: 0
+        }
+    }
 
     function tick() { // Notice this function calls itself
         screen.fillStyle = 'rgba(0,0,0,0.05)';
         screen.fillRect(0, 0, canvas.width, canvas.height);
         screen.fillStyle = 'rgba(0,255,0,1)';
-        array = array.map(function (value, index) { // Apply this function to every value of array every time
+        array = array.map(function (coordinate) { // Apply this function to every value of array every time
             let random = Math.random();
             // According to the ASCII Table, the chars from 32 to 126 are printable
             // Each time we just randomly select one from this range
-            screen.fillText(String.fromCharCode(32 + Math.round((126 - 32) * random)), index * 10 + offset, value);
-            value += gain;
-            return value > 500 + random * 10000 ? 0 : value; // Make the distribution of characters like a waterfall
+            screen.fillText(String.fromCharCode(32 + Math.round((126 - 32) * random)), coordinate.x, coordinate.y);
+            coordinate.x = (coordinate.x + offset) % 2560;
+            coordinate.y += gain;
+            return {
+                x: coordinate.x,
+                y: coordinate.y > 500 + random * 10000 ? 0 : coordinate.y
+            }
+                ; // Make the distribution of characters like a waterfall
         });
         requestAnimationFrame(tick); // Use function 'requestAnimationFrame' to improve performance
     }
@@ -40,15 +49,15 @@ document.onkeydown = function (e) {
             gain -= 2;
             break;
         case "ArrowLeft":
-            offset -= 5;
+            offset -= 1;
             break;
         case "ArrowRight":
-            offset += 5;
+            offset += 1;
             break;
         case "F11":
             location.reload();
             break;
-        case "r":
+        case "KeyR":
             location.reload();
             break;
         default:
